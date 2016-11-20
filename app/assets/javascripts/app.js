@@ -1,11 +1,12 @@
 $(document).ready(function() {
 
   function addTodo(todo) {
-    $('#todos').append('<li>' + todo.title + '</li>');
+    $('#todos').append('<li id="' + todo.id + '">' + todo.title + '</li>' + '<br>' + '<br>');
+    
     $('#todo').val('');
   }
 
-  $('#form').on('submit', function(event){
+  $('#form').on('submit', function(event) {
     event.preventDefault();
     var todo = $('#todo').val();
     $.ajax({
@@ -30,5 +31,14 @@ $(document).ready(function() {
     datatype: 'json',
     success: display
   })
+
+  $('#todos').on('click', 'li', function() {
+    $.ajax({
+      url: '/todos/' + this.id,
+      method: 'DELETE',
+      datatype: 'json',
+      success: this.remove()
+    })
+  });
 
 });
