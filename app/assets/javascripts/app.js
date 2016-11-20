@@ -2,6 +2,7 @@ $(document).ready(function() {
 
   function addTodo(todo) {
     $('#todos').append('<li>' + todo.title + '</li>');
+    $('#todo').val('');
   }
 
   $('#form').on('submit', function(event){
@@ -17,10 +18,17 @@ $(document).ready(function() {
     
   });
 
-  $.getJSON('/todos', function(todos) {
-    $.each(todos, function() {
-      addTodo(this);
+  function display(todos) {
+    todos.forEach(function (todo) {
+      addTodo(todo)
     });
-  });
+  }
+
+  $.ajax({
+    url: '/todos',
+    method: 'GET',
+    datatype: 'json',
+    success: display
+  })
 
 });
