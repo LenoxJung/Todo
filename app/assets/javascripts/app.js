@@ -16,7 +16,7 @@ $(document).ready(function() {
   function display(todos) {
     $('#todos').empty();
     todos.forEach(function (todo) {
-      $('#todos').append('<li id="' + todo.id + '">' + todo.title + '</li>' + '<br>' + '<br>');
+      $('#todos').append('<li id="' + todo.id + '">' + todo.title + ' <button>remove</button>' + '</li>' + '<br>');
     });
   }
 
@@ -29,9 +29,9 @@ $(document).ready(function() {
     });
   }
 
-  $('#todos').on('click', 'li', function() {
+  $('#todos').on('click', 'button', function() {
     $.ajax({
-      url: '/todos/' + this.id,
+      url: '/todos/' + this.parentElement.id,
       method: 'DELETE',
       datatype: 'json',
       success: get
