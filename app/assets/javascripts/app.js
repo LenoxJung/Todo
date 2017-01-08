@@ -18,7 +18,7 @@ $(document).ready(function() {
     todos.forEach(function (todo) {
       $('#todos').append('<li id="' + todo.id + '">' + todo.title + ' <button>remove</button>' + '</li>' + todo.date + '<br>' + '<br>');
     });
-  }
+  };
 
   function get() {
     $.ajax({
@@ -27,7 +27,7 @@ $(document).ready(function() {
       datatype: 'json',
       success: display
     });
-  }
+  };
 
   $('#todos').on('click', 'button', function() {
     $.ajax({
@@ -38,6 +38,10 @@ $(document).ready(function() {
     });
   });
 
-  get()
+  get();
+
+  $('#calendar').fullCalendar({
+    events: '/todos'
+  });
 
 });
