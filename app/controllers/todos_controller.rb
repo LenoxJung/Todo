@@ -6,7 +6,7 @@ class TodosController < ApplicationController
   end
 
   def create
-    @todo = Todo.new(title:params[:title])
+    @todo = Todo.new(title:params[:title],date:Date.today)
     @todo.save
     render json: @todo
   end

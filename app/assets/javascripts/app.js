@@ -16,7 +16,7 @@ $(document).ready(function() {
   function display(todos) {
     $('#todos').empty();
     todos.forEach(function (todo) {
-      $('#todos').append('<li id="' + todo.id + '">' + todo.title + ' <button>remove</button>' + '</li>' + '<br>');
+      $('#todos').append('<li id="' + todo.id + '">' + todo.title + ' <button>remove</button>' + '</li>' + todo.date + '<br>' + '<br>');
     });
   }
 
