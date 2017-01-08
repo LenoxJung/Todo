@@ -3,20 +3,25 @@ $(document).ready(function() {
   $('#form').on('submit', function(event) {
     event.preventDefault();
     var todo = $('#todo').val();
+    var dayArray = $('#datepick').val();
+    dayArray = dayArray.split("/");
+    day = dayArray[2] + dayArray[0] + dayArray[1]
     $.ajax({
       url: '/todos',
       method: 'POST',
       datatype: 'json',
-      data: { title: todo },
+      data: { title: todo, date:day },
       success: get
     });
-    $('#todo').val('');    
+    $('#todo').val('');  
+    $('#datepick').val('');
   });
 
   function display(todos) {
-    $('#todos').empty();
-    todos.forEach(function (todo) {
-      $('#todos').append('<li id="' + todo.id + '">' + todo.title + ' <button>remove</button>' + '</li>' + todo.date + '<br>' + '<br>');
+    $('#calendar').remove();
+    $('#form').append('<div id="calendar"></div>');
+    $('#calendar').fullCalendar({
+      events: '/todos'
     });
   };
 
@@ -39,9 +44,5 @@ $(document).ready(function() {
   });
 
   get();
-
-  $('#calendar').fullCalendar({
-    events: '/todos'
-  });
 
 });
